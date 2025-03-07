@@ -41,7 +41,7 @@ const char* htmlPage = R"rawliteral(
 </head>
 <body>
   <div class="logo-container">
-    <img src="https://flemingsociety.com/wp-content/uploads/2025/02/cropped-nobgwhite-e1738716077858-171x67.png" alt="Fleming Society Logo">
+    <img src="https://raw.flemingsociety.com/logo.png" alt="Fleming Society Logo">
   </div>
   <div class="container">
     <h1>Omni Directional Robot Control</h1>
