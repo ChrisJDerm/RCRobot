@@ -2,6 +2,7 @@
 var connection = new WebSocket("ws://" + window.location.hostname + ":81/");
 
 function toPlanner() {
+  stopPath()
   window.location = "/planner";
 }
 
@@ -119,5 +120,97 @@ function updateButtonCommand() {
   }
 }
 
+// 0 - up, 1 - down, 2 - left, 3 - right
 var commandQueue = []
+var timeQueue = []
+var timeOuts = []
 
+function addCommand(direction) {
+  console.log("Adding command with direction: " + direction)
+  var arrow
+  var symbols = ['\u21E7', '\u21E9', '\u21E6', '\u21E8']
+  try {
+    arrow = symbols[direction]
+  } catch (error) {
+    console.log("Invalid Direction")
+    alert("Invalid Direction")
+    return;
+  }
+  flag = 1
+  while(flag){
+    var time = prompt("Please enter time in seconds", 0)
+    if (time != null && time > 0){
+      flag = 0
+      commandQueue.push(direction)
+      timeQueue.push(time)
+
+      const path = document.createElement("button");
+      const arrowSym = document.createTextNode(arrow + "\n" + time);
+      path.append(arrowSym)
+      path.className = "pathBox"
+      const pathList = document.getElementById("pathDiv");
+      pathList.append(path)
+
+      updateBoxIndex()
+    } else {
+      alert("Invalid input, command time must be greater than 0. Input was: " + time)
+      console.log("Invalid input, command time must be greater than 0. Input was: " + time)
+    }
+  }
+}
+
+function updateBoxIndex(){
+  var pathBoxes = document.getElementsByClassName("pathBox");
+  for (let i = 0; i < pathBoxes.length; i++) { 
+    pathBoxes[i].addEventListener('mousedown', managePath);
+    pathBoxes[i].addEventListener('touchstart', managePath);
+    pathBoxes[i].dataset.index = i;
+  }
+}
+
+function runPath(){
+  stopPath()
+  timeOuts = []
+  var currTime = 0;
+  for(i = 0; i < commandQueue.length; i++){
+    console.log(currTime + 500)
+    timeOuts[2*i] = setTimeout(sendCommand, currTime + 500, commandQueue[i]+1)
+    currTime += 500
+    console.log(currTime + (timeQueue[i]*1000.0))
+    timeOuts[2*i+1] = setTimeout(sendCommand, currTime + (timeQueue[i]*1000.0), 0)
+    currTime += (timeQueue[i]*1000.0)
+  }
+}
+
+function stopPath(){
+  for(i=0; i < timeOuts.length; i++){
+    clearTimeout(timeOuts[i])
+  }
+  sendCommand(0)
+}
+
+function clearPath(){
+  stopPath()
+  toPlanner()
+}
+
+function managePath(event) {
+  var index = event.target.dataset.index
+  console.log("Element Index:", index);  // Logs the assigned ID
+  
+  var input = prompt("Edit command time. Enter 0 to delete the command")
+  console.log("Input is: " + input)
+  if(input == null || input < 0){
+    console.log("Invalid input")
+    return
+  }
+  if(input == 0){
+    commandQueue.splice(index, 1)
+    timeQueue.splice(index, 1)
+    event.target.remove()
+    updateBoxIndex()
+    return
+  }
+  timeQueue[index] = input
+  event.target.innerText = event.target.innerText.substring(0, event.target.innerText.length - 1) + input;
+}

@@ -11,19 +11,21 @@
   </div>
   <div class="container">
     <h1>Path Planner</h1>
+    <h2>Current Path:</h2>
+    <div class="row" id="pathDiv"></div>
+    <h2>Select Command:</h2>
     <div class="row">
+      <button onmousedown="addCommand(0)" ontouchstart="addCommand(0)">&#8679;</button>
+      <button onmousedown="addCommand(1)" ontouchstart="addCommand(1)">&#8681;</button>
+      <button onmousedown="addCommand(2)" ontouchstart="addCommand(2)">&#8678;</button>
+      <button onmousedown="addCommand(3)" ontouchstart="addCommand(3)">&#8680;</button>
     </div>
-    <div class="row">
-      <div class="spacer"></div>
+    <div style="display: flex;">
+      <button class="utility" ontouchstart="toControl()" onclick="toControl()" style="font-size: medium;">To Remote Control</button>
+      <button class="utility" ontouchstart="runPath()" onclick="runPath()">Run Path</button>
+      <button class="utility" ontouchstart="stopPath()" onclick="stopPath()">Stop Path</button>
+      <button class="utility" ontouchstart="clearPath()" onclick="clearPath()">Clear Path</button>
     </div>
-    <div class="row">
-      <button id="btnUp" onmousedown="buttonPress('up')" onmouseup="buttonRelease()" ontouchstart="buttonPress('up')" ontouchend="buttonRelease()">&#8679;</button>
-      <button id="btnDown" onmousedown="buttonPress('down')" onmouseup="buttonRelease()" ontouchstart="buttonPress('down')" ontouchend="buttonRelease()">&#8681;</button>
-      <button id="btnLeft" onmousedown="buttonPress('left')" onmouseup="buttonRelease()" ontouchstart="buttonPress('left')" ontouchend="buttonRelease()">&#8678;</button>
-      <button id="btnRight" onmousedown="buttonPress('right')" onmouseup="buttonRelease()" ontouchstart="buttonPress('right')" ontouchend="buttonRelease()">&#8680;</button>
-    </div>
-    <div class="row"></div>
-    <button id="toPlan" onclick="toControl()">To Remote Control</button>
   </div>
   <script src="./script.js"></script>
 </body>
