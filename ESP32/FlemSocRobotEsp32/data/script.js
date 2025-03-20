@@ -1,13 +1,38 @@
+// Open a WebSocket connection to the ESP32 (port 81)
+var connection = new WebSocket("ws://" + window.location.hostname + ":81/");
+
+function toPlanner() {
+  window.location = "/planner";
+}
+
+function toControl() {
+  window.location = "/";
+}
+
+connection.onopen = function () {
+  console.log("WebSocket is open now.");
+};
+
+connection.onclose = function () {
+  console.log("WebSocket is closed now.");
+};
+
+connection.onerror = function (error) {
+  console.error("WebSocket error:", error);
+};
+
+// Function to send a command via the WebSocket
+function sendCommand(cmd) {
+  if (connection.readyState === WebSocket.OPEN) {
+      connection.send(cmd.toString());
+      console.log("Sent command: " + cmd);
+  } else {
+      console.error("WebSocket is not open. Command not sent.");
+  }
+}
+
 // Object to track active keys for keyboard control
 const activeKeys = {};
-
-// Function to send a command to the ESP endpoint /cmd?value=...
-function sendCommand(cmd) {
-  fetch("/cmd?value=" + cmd)
-    .then(response => response.text())
-    .then(data => console.log("Sent command: " + data))
-    .catch(err => console.error(err));
-}
 
 // Determine which command to send based on active keys
 function updateCommand() {
@@ -62,7 +87,7 @@ function buttonPress(direction) {
 }
 
 function buttonRelease() {
-  // Clear all button states on release (or you can handle individual buttons if desired)
+  // Clear all button states on release (or handle individually if needed)
   buttonStates = { up: false, down: false, left: false, right: false };
   updateButtonCommand();
 }
@@ -93,3 +118,6 @@ function updateButtonCommand() {
     sendCommand(0); // Stop
   }
 }
+
+var commandQueue = []
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Robot Path Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+  <div class="logo-container">
+    <img src="https://raw.flemingsociety.com/logo.png" alt="Fleming Society Logo">
+  </div>
+  <div class="container">
+    <h1>Path Planner</h1>
+    <div class="row">
+    </div>
+    <div class="row">
+      <div class="spacer"></div>
+    </div>
+    <div class="row">
+      <button id="btnUp" onmousedown="buttonPress('up')" onmouseup="buttonRelease()" ontouchstart="buttonPress('up')" ontouchend="buttonRelease()">&#8679;</button>
+      <button id="btnDown" onmousedown="buttonPress('down')" onmouseup="buttonRelease()" ontouchstart="buttonPress('down')" ontouchend="buttonRelease()">&#8681;</button>
+      <button id="btnLeft" onmousedown="buttonPress('left')" onmouseup="buttonRelease()" ontouchstart="buttonPress('left')" ontouchend="buttonRelease()">&#8678;</button>
+      <button id="btnRight" onmousedown="buttonPress('right')" onmouseup="buttonRelease()" ontouchstart="buttonPress('right')" ontouchend="buttonRelease()">&#8680;</button>
+    </div>
+    <div class="row"></div>
+    <button id="toPlan" onclick="toControl()">To Remote Control</button>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
