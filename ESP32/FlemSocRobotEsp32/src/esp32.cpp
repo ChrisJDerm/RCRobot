@@ -5,13 +5,9 @@
 #include <WebSocketsServer.h>
 #include <SPIFFS.h>
 
-// WiFi credentials
-const char* ssid = "Weeeeeeeee!";
-const char* password = "GruyereRachman1noff";
-
 // Hotspot
-// const char* ssid = "iPhone (2)";
-// const char* password = "breadyay!";
+const char* ssid = "YungHub";
+const char* password = "yungyungs";
 
 // I2C slave addresses for the two Arduinos
 #define FRONT_ADDRESS 8

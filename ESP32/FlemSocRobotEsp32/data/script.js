@@ -138,8 +138,11 @@ function addCommand(direction) {
   }
   flag = 1
   while(flag){
-    var time = prompt("Please enter time in seconds", 0)
-    if (time != null && time > 0){
+    var time = prompt("Please enter time in seconds. Enter 0 to cancel", 0)
+    if (time != null && time >= 0){
+      if(time = 0){
+        return;
+      }
       flag = 0
       commandQueue.push(direction)
       timeQueue.push(time)
