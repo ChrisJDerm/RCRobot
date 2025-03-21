@@ -1,18 +1,22 @@
 #pragma once
+#include <Arduino.h>
 #include <Wire.h>
 
-class DriveController {
+#include "Motor.h"
 
-DriveController();
+class DriveController {
+public:
+DriveController(bool isRearWheels);
+
+void stop();
+void baseDrive(int command, int speed);
+void holonomicDrive();
 
 private:
-    const int kLeftPWM = 3;   // Back Left speed
-    const int kLeftDir = 12;  // Back Left direction
-    const int kLeftBrake = 9;   // Back Left brake
+    int invert;
 
-    const int kRightPWM = 11;  // Back Right speed
-    const int kRightDir = 13;  // Back Right direction
-    const int kRightBrake = 8;   // Back Right brake
+    Motor leftMotor;
+    Motor rightMotor;
 
-    const uint8_t motorSpeed = 200;  // Nominal speed
+    const uint8_t kMotorSpeed = 200;  // Nominal speed
 };
