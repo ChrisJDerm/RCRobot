@@ -7,7 +7,7 @@
 
 // Hotspot
 const char* ssid = "YungHub";
-const char* password = "yungyungs";
+const char* password = "yungyung";
 
 // I2C slave addresses for the two Arduinos
 #define FRONT_ADDRESS 8
